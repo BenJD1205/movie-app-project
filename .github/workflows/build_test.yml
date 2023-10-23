@@ -4,36 +4,35 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    push:
+        branches: ['master']
+    pull_request:
+        branches: ['master']
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [16.x, 18.x]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'yarn'
+            - name: Install project dependencies
+              run: yarn
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-    - name: Install project dependencies
-    - run: yarn
-    
-    - name: Check linting
-    - run: yarn lint
+            - name: Check linting
+              run: yarn lint
 
-    - name: Run tests
-    - run: yarn jest --changedSince=origin/next --ci --json --coverage --testLocationInResults --outputFile=report.json
+            - name: Run tests
+              run: yarn jest --changedSince=origin/next --ci --json --coverage --testLocationInResults --outputFile=report.json
 
-    - name: Build
-    - run: yarn build
+            - name: Build
+              run: yarn build
