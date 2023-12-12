@@ -1,0 +1,33 @@
+.input{
+    margin-bottom: 24px;
+    &-content{
+        border:1px solid #ccc;
+        border-radius: 4px;
+        padding:10px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        &:hover{
+            border-color: #000000;
+        }
+
+        input{
+            &:focus{
+                border-color: #cdad;
+            }
+        }
+    }
+
+    &-label{
+        font-weight: 500;
+        color:#383838;
+        margin: 0;
+    }
+
+    &-field{
+        outline: none;
+        border:none;
+        width: 100%;
+        padding-left: 8px;
+    }
+}

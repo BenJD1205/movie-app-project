@@ -24,7 +24,7 @@
             "tab"
         ],
         "linebreak-style": [
-            "error",
+            "off",
             "unix"
         ],
         "quotes": [
@@ -32,8 +32,10 @@
             "single"
         ],
         "semi": [
-            "error",
+            "off",
             "never"
-        ]
+        ],
+        "react/react-in-jsx-scope":"off",
+        "@typescript-eslint/no-explicit-any": "off"
     }
 }
